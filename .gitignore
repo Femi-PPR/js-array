@@ -3,3 +3,4 @@ node_modules/
 tailwind.config.js
 package.json
 package-lock.json
+css/tw_styles.css
