@@ -10,33 +10,95 @@
     <title>Femi's JS Array</title>
 </head>
 <body class="bg-palette-1 font-primary tracking-tight">
-<header class="p-3 border-b-2 border-black">
-    <h1 class="text-4xl">Random Image Generator</h1>
+<header class="p-4 border-b-2 border-black bg-palette-2">
+    <h1 class="container mx-auto text-4xl">Random Image Generator</h1>
 </header>
-<main class="pt-3">
+<main>
     <!-- IMAGES GENERATOR & ASSIGNER -->
-    <section>
-        <div class="container mx-auto">
-            <div class="main-image"></div>
-            <div class="p-3">
-                <h3 class="text-xl pb-4">Select email addresses to assign the picture to:</h3>
-                <form action="" class="flex flex-col gap-1 bg-palette-3 p-5 rounded-lg">
-                    <div class="flex gap-5 items-center">
-                        <label for="emails" class="flex flex-1 flex-col gap-1">
-                            Choose From Existing Email
-                            <select name="emails" class="p-2" id="" required>
-                                <option value="" class="p-2" disabled selected hidden>Select an email address</option>
-                            </select>
-                        </label>
-                        <p class="font-bold text-2xl flex-none">OR</p>
-                        <label for="new-email" class="flex flex-1 flex-col gap-1">
-                            Add New Email Address
-                            <input type="email" name="new-email" id="" class="p-2" placeholder="Email*">
-                        </label>
-                    </div>
-                    <button type="button" class="p-2 mt-4 bg-palette-1 rounded-sm">Select Email</button>
-                </form>
+    <section class="my-16 flex items-center">
+        <div class="container mx-auto flex gap-8">
+            <div class="flex flex-col gap-7 items-center">
+                <h2 class="text-xl font-semibold">Image Preview</h2>
+                <div class="w-72 h-96 bg-palette-2 ring-4 ring-offset-[10px] ring-offset-palette-1 ring-palette-6 rounded-lg">
+                    <img class="object-cover w-full h-full rounded-lg" src="http://placekitten.com/400/500" alt="">
+                    <div class=""></div>
+                </div>
+                <p class="w-80 bg-palette-3 px-3 py-2 rounded-md text-center leading-relaxed">
+                    Image taken by <a href="" class="text-palette-6">In irure aliqua</a>. <br> You can also see this image on <a href="" class="text-palette-6">Usplash</a>.
+                </p>
+            </div>
 
+            <div class="grow bg-palette-3 rounded-lg divide-y-2 divide-palette-1 flex flex-col">
+                <!-- RANDOMISER IMG -->
+                <div class="p-5">
+                    <form action="">
+                        <button type="button" class="p-2 bg-palette-1 rounded-sm w-full mb-2">Randomize Image</button>
+                        <button class="text-[0.8rem] flex items-center group/options">advanced options <span class="icon-[mdi--chevron-down]"></span></button>
+                        <div class="grid grid-cols-2 gap-x-4 gap-y-1 opt-active">
+                            <label for="collections" class="has-tooltip text-[0.8rem] font-light">
+                                Collections <br>
+                                <input type="text" id="collections" placeholder="e.g. Landscapes With Water" class="w-full p-1 text-[0.8rem] font-light">
+                                <div class="tooltip">Public collection ID(&apos;s) to filter selection. If multiple, comma-separated</div>
+                            </label>
+                            <label for="topics" class="text-[0.8rem] font-light">
+                                Topics <br>
+                                <input type="text" id="topics" placeholder="e.g. Outdoors, Adventure" class="w-full p-1 text-[0.8rem] font-light">
+                            </label>
+                            <label for="username" class="text-[0.8rem] font-light">
+                                Username <br>
+                                <input type="text" id="username" placeholder="e.g. Fellipe Ditadi" class="w-full p-1 text-[0.8rem] font-light">
+                            </label>
+                            <label for="query" class="text-[0.8rem] font-light">
+                                Keyword Search <br>
+                                <input type="text" id="query" placeholder="" class="w-full p-1 text-[0.8rem] font-light">
+                            </label>
+                            <label for="orientation" class="text-[0.8rem] font-light">
+                                Orientation <br>
+                                <select name="" id="orientation" class="w-full p-1 text-[0.8rem] font-light">
+                                    <option value="" disabled selected>Select an Orientation</option>
+                                    <option value="landscape">Landscape</option>
+                                    <option value="portrait">Portrait</option>
+                                    <option value="squarish">Squarish</option>
+                                </select>
+                            </label>
+                            <label for="content_filter" class="text-[0.8rem] font-light">
+                                Content Filter <br>
+                                <select name="" id="content_filter" class="w-full p-1 text-[0.8rem] font-light">
+                                    <option value="" disabled selected>Select a Content Filter</option>
+                                    <option value="high">High</option>
+                                    <option value="low">Low</option>
+                                </select>
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <!-- CHOOSE EMAIL -->
+                <div class="p-5 grow">
+                    <form action="" class="flex flex-col gap-1">
+                        <div class="flex flex-col">
+                            <label for="emails" class="flex flex-col">
+                                Choose From Existing Email
+                                <select name="emails" class="p-2" id="" required>
+                                    <option value="" class="p-2" disabled selected hidden>Select an email address</option>
+                                </select>
+                            </label>
+                            <p class="font-black text-2xl flex-none mx-auto mt-3">OR</p>
+                            <label for="new-email" class="flex flex-col gap-0.5">
+                                Add New Email Address
+                                <input type="email" name="new-email" id="" class="p-2" placeholder="Email*">
+                            </label>
+                        </div>
+                        <button type="button" class="p-2 mt-4 bg-palette-1 rounded-sm">Select Email</button>
+                    </form>
+                    <div class="mt-3">
+                        <p class="font-semibold">Selected Emails</p>
+                        <small>none yet</small>
+                    </div>
+                </div>
+                <!-- ASSIGN IMAGE TO EMAIL -->
+                <div class="p-5">
+                    <button class="p-2 bg-palette-1 rounded-sm w-full">Assign Image</button>
+                </div>
             </div>
         </div>
     </section>
@@ -44,7 +106,8 @@
     <section>
         <div class="container mx-auto">
             <div class="main-collections">
-                <h2>Collections</h2>
+                <h2 class="text-2xl font-semibold">Collections</h2>
+                <p>This is empty right now. Why don't you try attaching an image to an email address above.</p>
             </div>
         </div>
     </section>
