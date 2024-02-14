@@ -20,51 +20,32 @@
             <div class="flex flex-col gap-7 items-center">
                 <h2 class="text-xl font-semibold">Image Preview</h2>
                 <div class="w-72 h-96 bg-palette-2 ring-4 ring-offset-[10px] ring-offset-palette-1 ring-palette-6 rounded-lg">
-                    <img class="object-cover w-full h-full rounded-lg" src="http://placekitten.com/400/500" alt="">
+                    <img id="preview-img" class="object-cover w-full h-full rounded-lg" src="http://placekitten.com/400/500" alt="">
                     <div class=""></div>
                 </div>
                 <p class="w-80 bg-palette-3 px-3 py-2 rounded-md text-center leading-relaxed">
-                    Image taken by <a href="" class="text-palette-6">In irure aliqua</a>. <br> You can also see this image on <a href="" class="text-palette-6">Usplash</a>.
+                    Image taken by <a href="" class="unsplash-profile-link text-palette-6 hover:text-palette-7" target="_blank"></a>. <br> You can also see this image on <a href="" class="unsplash-img-link text-palette-6 hover:text-palette-7" target="_blank">Unsplash</a>.
                 </p>
             </div>
 
             <div class="grow bg-palette-3 rounded-lg divide-y-2 divide-palette-1 flex flex-col">
                 <!-- RANDOMISER IMG -->
                 <div class="p-5">
-                    <form action="">
-                        <button type="button" class="p-2 bg-palette-1 rounded-sm w-full mb-2">Randomize Image</button>
-                        <button class="text-[0.8rem] flex items-center group/options">advanced options <span class="icon-[mdi--chevron-down]"></span></button>
-                        <div class="grid grid-cols-2 gap-x-4 gap-y-1 opt-active">
-                            <label for="collections" class="has-tooltip text-[0.8rem] font-light">
-                                Collections <br>
-                                <input type="text" id="collections" placeholder="e.g. Landscapes With Water" class="w-full p-1 text-[0.8rem] font-light">
-                                <div class="tooltip">Public collection ID(&apos;s) to filter selection. If multiple, comma-separated</div>
-                            </label>
-                            <label for="topics" class="text-[0.8rem] font-light">
-                                Topics <br>
-                                <input type="text" id="topics" placeholder="e.g. Outdoors, Adventure" class="w-full p-1 text-[0.8rem] font-light">
+                    <form id="randomizer-form" action="">
+                        <button type="button" id="randomizer-btn" class="p-2 bg-palette-1 rounded-sm w-full mb-2">Randomize Image</button>
+                        <button type="button" id="adv-toggle-btn" class="text-[0.8rem] flex items-center" onclick="toggleDropdown()">advanced options <span class="icon-[mdi--chevron-down]"></span></button>
+                        <div id="adv-options" class="grid grid-cols-1 gap-x-4 gap-y-1 bg-palette-9 mx-[-1.25rem] transition-all opt-collapse">
+                            <label for="query" class="text-[0.8rem] font-light">
+                                Keyword Search <br>
+                                <input type="text" id="query" placeholder="" class="w-full p-1.5 text-[0.8rem] font-light">
                             </label>
                             <label for="username" class="text-[0.8rem] font-light">
                                 Username <br>
-                                <input type="text" id="username" placeholder="e.g. Fellipe Ditadi" class="w-full p-1 text-[0.8rem] font-light">
+                                <input type="text" id="username" placeholder="e.g. anniespratt" class="w-full p-1.5 text-[0.8rem] font-light">
                             </label>
-                            <label for="query" class="text-[0.8rem] font-light">
-                                Keyword Search <br>
-                                <input type="text" id="query" placeholder="" class="w-full p-1 text-[0.8rem] font-light">
-                            </label>
-                            <label for="orientation" class="text-[0.8rem] font-light">
-                                Orientation <br>
-                                <select name="" id="orientation" class="w-full p-1 text-[0.8rem] font-light">
-                                    <option value="" disabled selected>Select an Orientation</option>
-                                    <option value="landscape">Landscape</option>
-                                    <option value="portrait">Portrait</option>
-                                    <option value="squarish">Squarish</option>
-                                </select>
-                            </label>
-                            <label for="content_filter" class="text-[0.8rem] font-light">
+                            <label for="content-filter" class="text-[0.8rem] font-light">
                                 Content Filter <br>
-                                <select name="" id="content_filter" class="w-full p-1 text-[0.8rem] font-light">
-                                    <option value="" disabled selected>Select a Content Filter</option>
+                                <select name="" id="content-filter" class="w-full p-1.5 text-[0.8rem] font-light">
                                     <option value="high">High</option>
                                     <option value="low">Low</option>
                                 </select>
@@ -78,14 +59,14 @@
                         <div class="flex flex-col">
                             <label for="emails" class="flex flex-col">
                                 Choose From Existing Email
-                                <select name="emails" class="p-2" id="" required>
+                                <select id="emails" class="p-2" required>
                                     <option value="" class="p-2" disabled selected hidden>Select an email address</option>
                                 </select>
                             </label>
                             <p class="font-black text-2xl flex-none mx-auto mt-3">OR</p>
                             <label for="new-email" class="flex flex-col gap-0.5">
                                 Add New Email Address
-                                <input type="email" name="new-email" id="" class="p-2" placeholder="Email*">
+                                <input type="email" id="new-email" class="p-2" placeholder="Email*">
                             </label>
                         </div>
                         <button type="button" class="p-2 mt-4 bg-palette-1 rounded-sm">Select Email</button>
@@ -106,12 +87,74 @@
     <section>
         <div class="container mx-auto">
             <div class="main-collections">
-                <h2 class="text-2xl font-semibold">Collections</h2>
+                <h2 class="text-2xl font-semibold pb-2">Collections</h2>
+                <div id="accordion" class="accordion rounded-xl overflow-hidden">
+                    <div class="item bg-palette-2">
+                        <button class="header w-full bg-palette-8 p-5 text-xl flex justify-between items-center">
+                            <h2>testemail@email.com</h2>
+                            <span class="icon-[ion--chevron-down] size-7"></span>
+                        </button>
+                        <div class="content transition-all flex gap-5 flex-wrap">
+                            <div class="h-48 relative hover:outline group/img outline-2 outline-black">
+                                <img class="h-full w-full object-cover" src="http://placekitten.com/300/450" alt="">
+                                <div class="bg-black p-2 bg-opacity-75 invisible group-hover/img:visible absolute bottom-0 right-0 flex flex-col gap-3">
+                                    <a href="" class="usplash-icon-link opacity-75 hover:opacity-100" title="See image on Unsplash"><span class="icon-[ri--unsplash-fill] size-6 text-white"></span></a>
+                                    <button class="trash-btn opacity-75 hover:opacity-100" title="Remove image"><span class="icon-[iconoir--trash-solid] size-6 text-red-500"></span></button>
+                                </div>
+                            </div>
+                            <div class="h-48 relative hover:outline group/img outline-2 outline-black">
+                                <img class="h-full w-full object-cover" src="http://placekitten.com/400/400" alt="">
+                                <div class="bg-black p-2 bg-opacity-75 invisible group-hover/img:visible absolute bottom-0 right-0 flex flex-col gap-3">
+                                    <a href="" class="usplash-icon-link opacity-75 hover:opacity-100" title="See image on Unsplash"><span class="icon-[ri--unsplash-fill] size-6 text-white"></span></a>
+                                    <button class="trash-btn opacity-75 hover:opacity-100" title="Remove image"><span class="icon-[iconoir--trash-solid] size-6 text-red-500"></span></button>
+                                </div>
+                            </div>
+                            <div class="h-48 relative hover:outline group/img outline-2 outline-black">
+                                <img class="h-full w-full object-cover" src="http://placekitten.com/450/500" alt="">
+                                <div class="bg-black p-2 bg-opacity-75 invisible group-hover/img:visible absolute bottom-0 right-0 flex flex-col gap-3">
+                                    <a href="" class="usplash-icon-link opacity-75 hover:opacity-100" title="See image on Unsplash"><span class="icon-[ri--unsplash-fill] size-6 text-white"></span></a>
+                                    <button class="trash-btn opacity-75 hover:opacity-100" title="Remove image"><span class="icon-[iconoir--trash-solid] size-6 text-red-500"></span></button>
+                                </div>
+                            </div>
+                            <div class="h-48 relative hover:outline group/img outline-2 outline-black">
+                                <img class="h-full w-full object-cover" src="http://placekitten.com/400/450" alt="">
+                                <div class="bg-black p-2 bg-opacity-75 invisible group-hover/img:visible absolute bottom-0 right-0 flex flex-col gap-3">
+                                    <a href="" class="usplash-icon-link opacity-75 hover:opacity-100" title="See image on Unsplash"><span class="icon-[ri--unsplash-fill] size-6 text-white"></span></a>
+                                    <button class="trash-btn opacity-75 hover:opacity-100" title="Remove image"><span class="icon-[iconoir--trash-solid] size-6 text-red-500"></span></button>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="item bg-palette-2">
+                        <button class="header w-full bg-palette-8 p-5 text-xl flex justify-between items-center">
+                            <h2>test2elboog@email.com</h2>
+                            <span class="icon-[ion--chevron-down] size-7"></span>
+                        </button>
+                        <div class="content transition-all flex gap-5 flex-wrap">
+                            <div class="h-48 relative hover:outline group/img outline-2 outline-black">
+                                <img class="h-full w-full object-cover" src="http://placekitten.com/250/450" alt="">
+                                <div class="bg-black p-2 bg-opacity-75 invisible group-hover/img:visible absolute bottom-0 right-0 flex flex-col gap-3">
+                                    <a href="" class="usplash-icon-link opacity-75 hover:opacity-100" title="See image on Unsplash"><span class="icon-[ri--unsplash-fill] size-6 text-white"></span></a>
+                                    <button class="trash-btn opacity-75 hover:opacity-100" title="Remove image"><span class="icon-[iconoir--trash-solid] size-6 text-red-500"></span></button>
+                                </div>
+                            </div>
+                            <div class="h-48 relative hover:outline group/img outline-2 outline-black">
+                                <img class="h-full w-full object-cover" src="http://placekitten.com/630/700" alt="">
+                                <div class="bg-black p-2 bg-opacity-75 invisible group-hover/img:visible absolute bottom-0 right-0 flex flex-col gap-3">
+                                    <a href="" class="usplash-icon-link opacity-75 hover:opacity-100" title="See image on Unsplash"><span class="icon-[ri--unsplash-fill] size-6 text-white"></span></a>
+                                    <button class="trash-btn opacity-75 hover:opacity-100" title="Remove image"><span class="icon-[iconoir--trash-solid] size-6 text-red-500"></span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <p>This is empty right now. Why don't you try attaching an image to an email address above.</p>
             </div>
         </div>
     </section>
 </main>
-    
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="js/apps.js"></script>
 </body>
 </html>
