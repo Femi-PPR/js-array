@@ -1,4 +1,5 @@
 let selectedEmails = [];
+let idsWithCollections = new Set();
 const $emailSelectElem = $("#existing-emails");
 const $emailInputElem = $("#new-email");
 const $selectBtn = $("#select-btn");
@@ -16,6 +17,7 @@ class Email {
         this.$selected = $(
             `<span>${this.email} <i data-id="${this.id}" class="remove-email icon-[mdi--remove]"></i></span>`
         );
+        this.collection = new Set();
         Email.emailList.add(email);
         Email.idLookupTable.set(this.id, this);
     }
