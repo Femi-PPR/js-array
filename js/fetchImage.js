@@ -20,7 +20,9 @@ class Request {
     }
 }
 
-class Image {
+class UnsplashImage {
+    static currImageObj;
+
     constructor(data) {
         this.description = data.description;
         this.url = `${data.urls.raw}?q=75&fm=jpg&w=300&fit=max`;
@@ -32,6 +34,8 @@ class Image {
         this.hash = data.blur_hash;
         this.blurWidth = 20;
         this.blurHeight = this.#calcHeight(data.height / data.width);
+
+        UnsplashImage.currImageObj = this;
     }
 
     #calcHeight(aspectRatio) {
@@ -54,7 +58,7 @@ async function fetchImage(query = "", username = "", contentFilter = "high") {
         if (responce.ok) {
             const data = await responce.json();
             console.log("1!");
-            const image = new Image(data);
+            const image = new UnsplashImage(data);
             const blurhashImgData = await blurhash
                 .decodePromise(image.hash, image.blurWidth, image.blurHeight)
                 .then((blurhashImgData) => {
