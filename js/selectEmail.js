@@ -1,9 +1,9 @@
-let selectedEmails = [];
-let idsWithCollections = new Set();
+let selectedEmailIds = new Set();
 const $emailSelectElem = $("#existing-emails");
 const $emailInputElem = $("#new-email");
 const $selectBtn = $("#select-btn");
-const selectedDiv = $("#selected-div");
+const $selectedDiv = $("#selected-div");
+let activeWarnings = new Set();
 
 class Email {
     static count = 0;
@@ -15,9 +15,16 @@ class Email {
         this.id = ++Email.count;
         this.$option = $(`<option value="${this.id}">${this.email}</option>`);
         this.$selected = $(
-            `<span>${this.email} <i data-id="${this.id}" class="remove-email icon-[mdi--remove]"></i></span>`
+            `<small class="flex gap-1 items-center">${this.email} <i data-id="${this.id}" class="remove-email cursor-pointer text-red-600 icon-[mdi--remove-bold]"></i></small>`
         );
-        this.collection = new Set();
+        this.$item = $(`<div id="item-1" class="item bg-palette-2">
+    <button class="header w-full bg-palette-8 p-5 text-xl flex justify-between items-center">
+        <h2 class="overflow-hidden">${this.email}</h2>
+        <span class="icon-[ion--chevron-down] size-7"></span>
+    </button>
+    <div class="content transition-all flex gap-5 flex-wrap">
+    </div>                    
+</div>`);
         Email.emailList.add(email);
         Email.idLookupTable.set(this.id, this);
     }
@@ -26,7 +33,7 @@ class Email {
         return Email.emailList.has(email);
     }
 
-    static findEmailById(id) {
+    static getEmailById(id) {
         return Email.idLookupTable.get(id);
     }
 
@@ -36,6 +43,10 @@ class Email {
 
     removeSelected() {
         this.$selected.remove();
+    }
+
+    appendToItem(elemStr) {
+        this.$item.children(".content").append(elemStr);
     }
 }
 
@@ -48,7 +59,16 @@ function escapeHtml(text) {
         .replace(/'/g, "&#039;");
 }
 
-function addEmailtoSelection(emailObj) {}
+function addEmailtoSelection(emailObj) {
+    selectedEmailIds.add(emailObj.id);
+    $selectedDiv.append(emailObj.$selected);
+}
+
+function removeEmailfromSelection(emailObj) {
+    selectedEmailIds.delete(emailObj.id);
+    emailObj.removeSelected();
+    $emailSelectElem.append(emailObj.$option);
+}
 
 $emailInputElem.on("input", () => {
     let disableSelect = $emailInputElem.val() !== "";
@@ -63,7 +83,30 @@ $selectBtn.click(() => {
 
     if ($emailInputElem.val() !== "") {
         let email = escapeHtml($emailInputElem.val());
-        selectedEmails.push(email);
-        new Email(email);
+
+        if (Email.exists(email)) {
+            console.log("ALREADY EXISTS EMAIL!!!!!!");
+            return;
+        }
+
+        if (Email.count >= 30) {
+            console.log("TOO MANY EMAILS ALREADY. NO MORE!!!!!!");
+            return;
+        }
+
+        addEmailtoSelection(new Email(email));
+        $emailInputElem.val("");
+        $emailSelectElem.attr("disabled", false);
+    } else {
+        let id = parseInt($emailSelectElem.val());
+        let emailObj = Email.getEmailById(id);
+        addEmailtoSelection(emailObj);
+        emailObj.removeOption();
     }
+});
+
+$selectedDiv.on("click", ".remove-email", (event) => {
+    const $target = $(event.target);
+    console.log($target.data("id"));
+    removeEmailfromSelection(Email.getEmailById($target.data("id")));
 });
