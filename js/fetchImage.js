@@ -9,6 +9,12 @@ class Request {
     url =
         "https://api.unsplash.com/photos/random/?client_id=XYRQifXX_-x6Nroy6uWI4RcI-L1ufecX4TPi_iIFN4k&orientation=portrait";
 
+    constructor(url = null) {
+        if (url !== null) {
+            this.url = url;
+        }
+    }
+
     addParam(paramName, paramValue) {
         if (typeof paramValue !== "string")
             throw new TypeError(
@@ -23,17 +29,30 @@ class Request {
 class UnsplashImage {
     static currImageObj;
 
-    constructor(data) {
-        this.description = data.description;
-        this.url = `${data.urls.raw}?q=75&fm=jpg&w=300&fit=max`;
-        this.link = data.links.html;
-        this.download = data.links.download_location;
-        this.author = `${data.user.name} (@${data.user.username})`;
-        this.profileLink = data.user.links.html;
-        this.profileImg = data.user.profile_image.small;
-        this.hash = data.blur_hash;
-        this.blurWidth = 20;
-        this.blurHeight = this.#calcHeight(data.height / data.width);
+    constructor(data, test = false) {
+        if (test) {
+            this.description = data.description;
+            this.url = "http://placekitten.com/300/450";
+            this.link = "http://placekitten.com";
+            this.downloadUrl = "http://placekitten.com";
+            this.author = `Kay (@kay)`;
+            this.profileLink = "http://placekitten.com";
+            this.profileImg = "http://placekitten.com/30/30";
+            // this.hash = data.blur_hash;
+            // this.blurWidth = 20;
+            // this.blurHeight = this.#calcHeight(data.height / data.width);
+        } else {
+            this.description = data.description;
+            this.url = `${data.urls.raw}?q=75&fm=jpg&w=300&fit=max`;
+            this.link = data.links.html;
+            this.downloadUrl = `${data.links.download_location}&client_id=XYRQifXX_-x6Nroy6uWI4RcI-L1ufecX4TPi_iIFN4k`;
+            this.author = `${data.user.name} (@${data.user.username})`;
+            this.profileLink = data.user.links.html;
+            this.profileImg = data.user.profile_image.small;
+            this.hash = data.blur_hash;
+            this.blurWidth = 20;
+            this.blurHeight = this.#calcHeight(data.height / data.width);
+        }
 
         UnsplashImage.currImageObj = this;
     }
@@ -76,7 +95,8 @@ async function fetchImage(query = "", username = "", contentFilter = "high") {
             )
                 .addClass("object-cover w-full h-full rounded-lg")
                 .attr("id", "blur-img");
-            console.log(`TESTING ${$canvas}`);
+            console.log(`TESTING ${data.urls.raw}`);
+            console.log(`download: ${image.downloadUrl}`);
             $("#loading-div").append($canvas);
             $previewImg.attr("src", image.url).attr("alt", image.description);
             console.log($previewImg.attr("alt"));
@@ -88,8 +108,8 @@ async function fetchImage(query = "", username = "", contentFilter = "high") {
                 case 400:
                     errMsg = "Reached Rate Limit";
                     break;
-                case 401:
-                    errMsg = "Unathorized";
+                case 403:
+                    errMsg = "Missing permissions to perform request";
                     break;
                 case 404:
                     errMsg = "Found no matches for query";
