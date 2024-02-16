@@ -71,94 +71,36 @@
                         </div>
                         <button type="button" id="select-btn" class="p-2 mt-4 bg-palette-1 rounded-sm">Select Email</button>
                     </form>
-                    <div id="selected-div" class="mt-3">
+                    <div class="mt-3">
                         <p class="font-semibold">Selected Emails</p>
-                         <p class="font-normal text-sm">(you can remove a selected item by clicking on it or you can remove all of them by clicking here)</p>
-                        <small>none yet</small>
+                        <div id="selected-div" class="flex flex-wrap gap-3"></div>
+                        <!-- <small>none yet</small> -->
                     </div>
                 </div>
                 <!-- ASSIGN IMAGE TO EMAIL -->
                 <div class="p-5">
-                    <button class="p-2 bg-palette-1 rounded-sm w-full">Assign Image</button>
+                    <button id="assign-btn" class="p-2 bg-palette-1 rounded-sm w-full">Assign Image</button>
                 </div>
             </div>
         </div>
     </section>
     <!-- COLLECTION OF ASSIGNED IMAGES -->
-    <section>
+    <section class="py-6">
         <div class="container mx-auto">
             <div class="main-collections">
                 <h2 class="text-2xl font-semibold pb-2">Collections</h2>
                 <div id="accordion" class="accordion rounded-xl overflow-hidden">
-                    <div class="item bg-palette-2">
-                        <button class="header w-full bg-palette-8 p-5 text-xl flex justify-between items-center">
-                            <h2>testemail@email.com</h2>
-                            <span class="icon-[ion--chevron-down] size-7"></span>
-                        </button>
-                        <div class="content transition-all flex gap-5 flex-wrap">
-                            <div class="h-48 relative hover:outline group/img outline-2 outline-black">
-                                <img class="h-full w-full object-cover" src="http://placekitten.com/300/450" alt="">
-                                <div class="bg-black p-2 bg-opacity-75 invisible group-hover/img:visible absolute bottom-0 right-0 flex flex-col gap-3">
-                                    <a href="" class="usplash-icon-link opacity-75 hover:opacity-100" title="See image on Unsplash"><span class="icon-[ri--unsplash-fill] size-6 text-white"></span></a>
-                                    <button class="trash-btn opacity-75 hover:opacity-100" title="Remove image"><span class="icon-[iconoir--trash-solid] size-6 text-red-500"></span></button>
-                                </div>
-                            </div>
-                            <div class="h-48 relative hover:outline group/img outline-2 outline-black">
-                                <img class="h-full w-full object-cover" src="http://placekitten.com/400/400" alt="">
-                                <div class="bg-black p-2 bg-opacity-75 invisible group-hover/img:visible absolute bottom-0 right-0 flex flex-col gap-3">
-                                    <a href="" class="usplash-icon-link opacity-75 hover:opacity-100" title="See image on Unsplash"><span class="icon-[ri--unsplash-fill] size-6 text-white"></span></a>
-                                    <button class="trash-btn opacity-75 hover:opacity-100" title="Remove image"><span class="icon-[iconoir--trash-solid] size-6 text-red-500"></span></button>
-                                </div>
-                            </div>
-                            <div class="h-48 relative hover:outline group/img outline-2 outline-black">
-                                <img class="h-full w-full object-cover" src="http://placekitten.com/450/500" alt="">
-                                <div class="bg-black p-2 bg-opacity-75 invisible group-hover/img:visible absolute bottom-0 right-0 flex flex-col gap-3">
-                                    <a href="" class="usplash-icon-link opacity-75 hover:opacity-100" title="See image on Unsplash"><span class="icon-[ri--unsplash-fill] size-6 text-white"></span></a>
-                                    <button class="trash-btn opacity-75 hover:opacity-100" title="Remove image"><span class="icon-[iconoir--trash-solid] size-6 text-red-500"></span></button>
-                                </div>
-                            </div>
-                            <div class="h-48 relative hover:outline group/img outline-2 outline-black">
-                                <img class="h-full w-full object-cover" src="http://placekitten.com/400/450" alt="">
-                                <div class="bg-black p-2 bg-opacity-75 invisible group-hover/img:visible absolute bottom-0 right-0 flex flex-col gap-3">
-                                    <a href="" class="usplash-icon-link opacity-75 hover:opacity-100" title="See image on Unsplash"><span class="icon-[ri--unsplash-fill] size-6 text-white"></span></a>
-                                    <button class="trash-btn opacity-75 hover:opacity-100" title="Remove image"><span class="icon-[iconoir--trash-solid] size-6 text-red-500"></span></button>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                    <div class="item bg-palette-2">
-                        <button class="header w-full bg-palette-8 p-5 text-xl flex justify-between items-center">
-                            <h2>test2elboog@email.com</h2>
-                            <span class="icon-[ion--chevron-down] size-7"></span>
-                        </button>
-                        <div class="content transition-all flex gap-5 flex-wrap">
-                            <div class="h-48 relative hover:outline group/img outline-2 outline-black">
-                                <img class="h-full w-full object-cover" src="http://placekitten.com/250/450" alt="">
-                                <div class="bg-black p-2 bg-opacity-75 invisible group-hover/img:visible absolute bottom-0 right-0 flex flex-col gap-3">
-                                    <a href="" class="usplash-icon-link opacity-75 hover:opacity-100" title="See image on Unsplash"><span class="icon-[ri--unsplash-fill] size-6 text-white"></span></a>
-                                    <button class="trash-btn opacity-75 hover:opacity-100" title="Remove image"><span class="icon-[iconoir--trash-solid] size-6 text-red-500"></span></button>
-                                </div>
-                            </div>
-                            <div class="h-48 relative hover:outline group/img outline-2 outline-black">
-                                <img class="h-full w-full object-cover" src="http://placekitten.com/630/700" alt="">
-                                <div class="bg-black p-2 bg-opacity-75 invisible group-hover/img:visible absolute bottom-0 right-0 flex flex-col gap-3">
-                                    <a href="" class="usplash-icon-link opacity-75 hover:opacity-100" title="See image on Unsplash"><span class="icon-[ri--unsplash-fill] size-6 text-white"></span></a>
-                                    <button class="trash-btn opacity-75 hover:opacity-100" title="Remove image"><span class="icon-[iconoir--trash-solid] size-6 text-red-500"></span></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-                <p>This is empty right now. Why don't you try attaching an image to an email address above.</p>
+                <!-- <p>This is empty right now. Why don't you try attaching an image to an email address above.</p> -->
             </div>
-        </div>
+        </div>    
     </section>
 </main>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="js/blurhash-js/blurhash_pure_js_port.min.js"></script>
 <script src="js/fetchImage.js"></script>
 <script src="js/selectEmail.js"></script>
+<script src="js/collections.js"></script>
 <script src="js/apps.js"></script>
 </body>
 </html>
