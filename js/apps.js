@@ -43,7 +43,7 @@ function toggleCollection($element, $chevron) {
 }
 
 $("#accordion").on("click", ".header", (event) => {
-    const $item = $(event.target.closest(".item"));
-    const $chevron1 = $(event.target.querySelector("span"));
+    const $item = $(event.currentTarget.closest(".item"));
+    const $chevron1 = $(event.currentTarget.querySelector("span"));
     toggleCollection($item, $chevron1);
 });
