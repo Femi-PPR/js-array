@@ -3,7 +3,6 @@ const $emailSelectElem = $("#existing-emails");
 const $emailInputElem = $("#new-email");
 const $selectBtn = $("#select-btn");
 const $selectedDiv = $("#selected-div");
-let activeWarnings = new Set();
 
 class Email {
     static count = 0;
@@ -77,7 +76,7 @@ $emailInputElem.on("input", () => {
 
 $selectBtn.click(() => {
     if ($emailInputElem.val() === "" && $emailSelectElem.val() === null) {
-        console.log("THERE IS NOTHING HERE!!!!!!");
+        createAlert("error", "THERE IS NOTHING HERE!!!!!!");
         return;
     }
 
@@ -85,12 +84,12 @@ $selectBtn.click(() => {
         let email = escapeHtml($emailInputElem.val());
 
         if (Email.exists(email)) {
-            console.log("ALREADY EXISTS EMAIL!!!!!!");
+            createAlert("error", "ALREADY EXISTS EMAIL!!!!!!");
             return;
         }
 
         if (Email.count >= 30) {
-            console.log("TOO MANY EMAILS ALREADY. NO MORE!!!!!!");
+            createAlert("error", "TOO MANY EMAILS ALREADY. NO MORE!!!!!!");
             return;
         }
 
@@ -104,7 +103,7 @@ $selectBtn.click(() => {
         emailObj.removeOption();
     }
 });
-
+// Quiexercitationculpasuntcillumdolor.Loremdoloreconsecteturmagnaconsequatmagnaveniamnonadipisicingmagnamagnaenimnulla.Mollitdolaborumconsequatidsuntexercitationmagnacommododolornisiadnon.Iddolorlaboreoccaecatsuntconsequatadipisicingadsuntreprehenderitaliquip.Occaecatetidcommodoadidexcepteurnonvoluptate.Nonveniamdolorduisconsequatestenimipsumoccaecatad.
 $selectedDiv.on("click", ".remove-email", (event) => {
     const $target = $(event.target);
     console.log($target.data("id"));
