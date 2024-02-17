@@ -2,50 +2,6 @@ let collections = new Map();
 const $assignBtn = $("#assign-btn");
 const $accordion = $("#accordion");
 
-const testImage = new UnsplashImage("", true);
-
-console.log(testImage);
-
-function createItem() {
-    `<div id="item-1" class="item bg-palette-2">
-    <button class="header w-full bg-palette-8 p-5 text-xl flex justify-between items-center">
-        <h2 class="overflow-hidden">testemail@email.com</h2>
-        <span class="icon-[ion--chevron-down] size-7"></span>
-    </button>
-    <div class="content transition-all flex gap-5 flex-wrap">
-        <div class="h-48 relative">
-            <img class="h-full w-full object-cover" src="http://placekitten.com/300/450" alt="">
-            <div class="bg-black p-2 bg-opacity-75 absolute top-0 left-0 flex gap-3">
-                <a href="" class="profile-icon-link opacity-75 hover:opacity-100" title="See profile on Unsplash"><img src="http://placekitten.com/30/30" class="size-6 rounded-full" alt=""></a>
-                <a href="" class="usplash-icon-link opacity-75 hover:opacity-100" title="See image on Unsplash"><span class="icon-[ri--unsplash-fill] size-6 text-white"></span></a>
-            </div>
-        </div>
-        <div class="h-48 relative">
-            <img class="h-full w-full object-cover" src="http://placekitten.com/400/400" alt="">
-            <div class="bg-black p-2 bg-opacity-75 absolute top-0 left-0 flex gap-3">
-                <a href="" class="profile-icon-link opacity-75 hover:opacity-100" title="See profile on Unsplash"><img src="http://placekitten.com/30/30" class="size-6 rounded-full" alt=""></a>
-                <a href="" class="usplash-icon-link opacity-75 hover:opacity-100" title="See image on Unsplash"><span class="icon-[ri--unsplash-fill] size-6 text-white"></span></a>
-            </div>
-        </div>
-        <div class="h-48 relative">
-            <img class="h-full w-full object-cover" src="http://placekitten.com/450/500" alt="">
-            <div class="bg-black p-2 bg-opacity-75 absolute top-0 left-0 flex gap-3">
-                <a href="" class="profile-icon-link opacity-75 hover:opacity-100" title="See profile on Unsplash"><img src="http://placekitten.com/30/30" class="size-6 rounded-full" alt=""></a>
-                <a href="" class="usplash-icon-link opacity-75 hover:opacity-100" title="See image on Unsplash"><span class="icon-[ri--unsplash-fill] size-6 text-white"></span></a>
-            </div>
-
-        </div>                            
-        <div class="h-48 relative">
-            <img class="h-full w-full object-cover" src="http://placekitten.com/400/450" alt="">
-            <div class="bg-black p-2 bg-opacity-75 absolute top-0 left-0 flex gap-3">
-                <a href="" class="profile-icon-link opacity-75 hover:opacity-100" title="See profile on Unsplash"><img src="http://placekitten.com/30/30" class="size-6 rounded-full" alt=""></a>
-                <a href="" class="usplash-icon-link opacity-75 hover:opacity-100" title="See image on Unsplash"><span class="icon-[ri--unsplash-fill] size-6 text-white"></span></a>
-            </div>
-        </div>
-    </div>                    
-</div>`;
-}
-
 function triggerDownload(image) {
     fetch(image.downloadUrl);
 }
@@ -62,27 +18,60 @@ function appendImage(emailObj, image) {
 }
 
 $assignBtn.click(() => {
+    if (UnsplashImage.currImageObj === undefined) {
+        createAlert(
+            "error",
+            "No image is currently selected. Please press the 'Randomize Image' button to select an image."
+        );
+        return;
+    }
     if (!selectedEmailIds.size) {
-        console.log("CANT ASSIGN NOTHING!!!");
+        createAlert(
+            "error",
+            "Can't assign image before emails have been selected"
+        );
         return;
     }
 
+    $("#no-collections").hide();
+
+    let alreadyInOneCollection = false;
+    let alreadyInAllCollections = true;
+
     selectedEmailIds.forEach((id) => {
         let image = UnsplashImage.currImageObj;
-        if (collections.has(id) && collections.get(id).has(image.url)) return;
-
         let emailObj = Email.getEmailById(id);
-        if (!collections.has(id)) {
-            $accordion.append(emailObj.$item);
-            collections.set(id, new Set());
+        if (collections.has(id) && collections.get(id).has(image.url)) {
+            alreadyInOneCollection = true;
+        } else {
+            if (!collections.has(id)) {
+                $accordion.append(emailObj.$item);
+                collections.set(id, new Set());
+            }
+            appendImage(emailObj, image);
+            collections.get(id).add(image.url);
+
+            alreadyInAllCollections = false;
+            triggerDownload(image);
         }
-        appendImage(emailObj, image);
+
         removeEmailfromSelection(emailObj);
-        collections.get(id).add(image.url);
-
-        // triggerDownload(image);
     });
-
+    if (!alreadyInOneCollection)
+        createAlert(
+            "success",
+            "Added image to every selected emails collection"
+        );
+    else if (!alreadyInAllCollections)
+        createAlert(
+            "warning",
+            "Added image to some selected emails collections as it already exists in the others"
+        );
+    else
+        createAlert(
+            "error",
+            "Image was not added to any selected emails collections as it already exists in all of them"
+        );
     fetchImage(
         $("#query").val(),
         $("#username").val(),
