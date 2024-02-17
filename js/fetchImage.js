@@ -73,16 +73,12 @@ async function fetchImage(query = "", username = "", contentFilter = "high") {
 
     try {
         const responce = await fetch(request.url);
-        console.log(responce);
         if (responce.ok) {
             const data = await responce.json();
-            console.log("1!");
             const image = new UnsplashImage(data);
             const blurhashImgData = await blurhash
                 .decodePromise(image.hash, image.blurWidth, image.blurHeight)
                 .then((blurhashImgData) => {
-                    console.log("HERE!");
-                    // console.log(`All the data ${blurhashImgData}`);
                     $("#loading-bg").remove();
                     return blurhashImgData;
                 });
@@ -95,45 +91,44 @@ async function fetchImage(query = "", username = "", contentFilter = "high") {
             )
                 .addClass("object-cover w-full h-full rounded-lg")
                 .attr("id", "blur-img");
-            console.log(`TESTING ${data.urls.raw}`);
-            console.log(`download: ${image.downloadUrl}`);
             $("#loading-div").append($canvas);
             $previewImg.attr("src", image.url).attr("alt", image.description);
-            console.log($previewImg.attr("alt"));
             $profileLink.attr("href", image.profileLink).text(image.author);
             $imgLink.attr("href", image.link);
         } else {
+            $("#loading-bg").remove();
             let errMsg;
             switch (responce.status) {
-                case 400:
-                    errMsg = "Reached Rate Limit";
-                    break;
                 case 403:
-                    errMsg = "Missing permissions to perform request";
+                    errMsg =
+                        "You have reached the rate limit for the hour. Please try again later.";
                     break;
                 case 404:
-                    errMsg = "Found no matches for query";
+                    errMsg =
+                        "Found no images that match the given search query.";
                     break;
                 default:
-                    errMsg = "Error. Something happened idk what.";
+                    errMsg = "Error. Something happened, idk.";
                     break;
             }
-            console.log(`${responce.status}: ${errMsg}`);
+            createAlert("error", errMsg);
         }
     } catch (e) {
-        console.error("ERROR:", e.name, e.message);
+        console.error(`ERROR ${e.name}: ${e.message}`);
+    } finally {
+        $("#loading-bg").remove();
     }
 }
 
 $previewImg.on("load", () => {
-    console.log("FINISHED!!!");
     $("#blur-img").remove();
 });
 
 $("#randomizer-btn").on("click", async () => {
     const username = $("#username").val();
     if (!USERNAME_REGEX.test(username)) {
-        console.log(
+        createAlert(
+            "error",
             "Username can only contain letters, numbers, and underscores"
         );
         return;
