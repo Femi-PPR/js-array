@@ -46,9 +46,8 @@ function createItem() {
 </div>`;
 }
 
-async function triggerDownload(image) {
-    const responce = await fetch(image.downloadUrl);
-    return responce.ok;
+function triggerDownload(image) {
+    fetch(image.downloadUrl);
 }
 
 function appendImage(emailObj, image) {
@@ -62,13 +61,13 @@ function appendImage(emailObj, image) {
     emailObj.appendToItem(imageStr);
 }
 
-$assignBtn.click(async () => {
+$assignBtn.click(() => {
     if (!selectedEmailIds.size) {
         console.log("CANT ASSIGN NOTHING!!!");
         return;
     }
 
-    selectedEmailIds.forEach(async (id) => {
+    selectedEmailIds.forEach((id) => {
         let image = UnsplashImage.currImageObj;
         if (collections.has(id) && collections.get(id).has(image.url)) return;
 
@@ -81,7 +80,7 @@ $assignBtn.click(async () => {
         removeEmailfromSelection(emailObj);
         collections.get(id).add(image.url);
 
-        // await triggerDownload(image);
+        // triggerDownload(image);
     });
 
     fetchImage(
