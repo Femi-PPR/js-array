@@ -15,10 +15,11 @@
 <header class="p-4 border-b-2 border-black bg-palette-2">
     <h1 class="container mx-auto text-4xl">Random Image Generator</h1>
 </header>
-<main>
+<main class="flex flex-col justify-around 2xl:justify-start min-h-dvh py-16 gap-8">
     <!-- IMAGES GENERATOR & ASSIGNER -->
-    <section class="my-16 flex items-center">
-        <div class="container mx-auto flex gap-8">
+    <section class="flex items-center">
+        <div class="container mx-auto flex flex-col md:flex-row gap-8">
+            <!-- IMG PREVIEW -->
             <div class="flex flex-col gap-7 items-center">
                 <h2 class="text-xl font-semibold">Image Preview</h2>
                 <div class="w-72 h-96 relative bg-palette-6 overflow-hidden ring-4 ring-offset-[10px] ring-offset-palette-1 ring-palette-6 rounded-lg">
@@ -29,7 +30,7 @@
                     Image taken by <a href="" class="unsplash-profile-link text-palette-6 hover:text-palette-7" target="_blank"></a>. <br> You can also see this image on <a href="" class="unsplash-img-link text-palette-6 hover:text-palette-7" target="_blank">Unsplash</a>.
                 </p>
             </div>
-
+            <!-- SETTINGS -->
             <div class="grow bg-palette-3 rounded-lg divide-y-2 divide-palette-1 flex flex-col">
                 <!-- RANDOMISER IMG -->
                 <div class="p-5">
@@ -61,14 +62,14 @@
                         <div class="flex flex-col">
                             <label for="existing-emails" class="flex flex-col">
                                 Choose From Existing Email
-                                <select id="existing-emails" class="p-2" required>
-                                    <option value="" class="p-2" disabled hidden selected>Select an email address</option>
+                                <select id="existing-emails" class="p-2 disabled:bg-gray-100 overflow-hidden max-w-full" required>
+                                    <option value="" id="default-selection" class="p-2" disabled hidden selected>Select an email address</option>
                                 </select>
                             </label>
                             <p class="font-black text-2xl flex-none mx-auto mt-3">OR</p>
                             <label for="new-email" class="flex flex-col gap-0.5">
                                 Add New Email Address
-                                <input type="email" id="new-email" class="p-2" placeholder="Email">
+                                <input type="email" id="new-email" class="p-2 overflow-scroll" placeholder="Email">
                             </label>
                         </div>
                         <button type="button" id="select-btn" class="p-2 mt-4 bg-palette-1 rounded-sm">Select Email</button>
@@ -87,13 +88,13 @@
         </div>
     </section>
     <!-- COLLECTION OF ASSIGNED IMAGES -->
-    <section class="py-6">
+    <section class="">
         <div class="container mx-auto">
             <div class="main-collections">
                 <h2 class="text-2xl font-semibold pb-2">Collections</h2>
                 <div id="accordion" class="accordion rounded-xl overflow-hidden">
                 </div>
-                <!-- <p>This is empty right now. Why don't you try attaching an image to an email address above.</p> -->
+                <p id="no-collections">This is empty right now. Why don't you try attaching an image to an email address above.</p>
             </div>
         </div>    
     </section>
