@@ -43,38 +43,62 @@ function escapeHtml(text) {
 }
 
 function createAlert(type, msg) {
-    let colour;
-    let iconType;
+    let alertStyles;
     type = type.toLowerCase();
     switch (type) {
         case "warning":
-            colour = "yellow";
-            iconType = "exclamation-triangle";
+            alertStyles = {
+                bg: "bg-yellow-50",
+                icon: "icon-[heroicons--exclamation-triangle-16-solid]",
+                iconColor: "bg-yellow-400",
+                head: "text-yellow-800",
+                body: "text-yellow-700",
+                dismiss: "text-yellow-500",
+                dismissHover: "hover:bg-yellow-100",
+            };
             break;
         case "error":
-            colour = "red";
-            iconType = "x-circle";
+            alertStyles = {
+                bg: "bg-red-50",
+                icon: "icon-[heroicons--x-circle-16-solid]",
+                iconColor: "bg-red-400",
+                head: "text-red-800",
+                body: "text-red-700",
+                dismiss: "text-red-500",
+                dismissHover: "hover:bg-red-100",
+            };
             break;
         case "success":
-            colour = "green";
-            iconType = "check-circle";
+            alertStyles = {
+                bg: "bg-green-50",
+                icon: "icon-[heroicons--check-circle-16-solid]",
+                iconColor: "bg-green-400",
+                head: "text-green-800",
+                body: "text-green-700",
+                dismiss: "text-green-500",
+                dismissHover: "hover:bg-green-100",
+            };
             break;
         default:
             throw new TypeError("An invalid alert type was given");
     }
 
     let capitalType = type.charAt(0).toUpperCase() + type.slice(1);
-    let alert = {
-        msg: msg,
-    };
+    let alert = { msg: msg };
 
-    alert.$elem = $(`<div data-type="${type}" class="alert flex container p-3.5 rounded items-center gap-2 bg-${colour}-50">
-    <span class="icon-[heroicons--${iconType}-16-solid] bg-${colour}-400"></span>
+    alert.$elem = $(`<div data-type="${type}" class="alert flex container p-3.5 rounded items-center gap-2 ${
+        alertStyles.bg
+    }">
+    <span class="${alertStyles.icon} ${alertStyles.iconColor}"></span>
     <div>
-        <h2 class="inline text-${colour}-800">${capitalType}: </h2>
-        <p class="inline text-${colour}-700">${escapeHtml(msg)}</p>
+        <h2 class="inline ${alertStyles.head}">${capitalType}: </h2>
+        <p class="inline ${alertStyles.body}">${escapeHtml(msg)}</p>
     </div>
-    <button class="ml-auto flex p-1.5 rounded hover:bg-${colour}-100"><span class="icon-[fluent--dismiss-16-filled] text-${colour}-500"></span></button>
+    <button class="ml-auto flex p-1.5 rounded ${
+        alertStyles.dismissHover
+    }"><span class="icon-[fluent--dismiss-16-filled] ${
+        alertStyles.dismiss
+    }"></span></button>
 </div>`).hide();
 
     switch (type.toLowerCase()) {
@@ -92,18 +116,10 @@ function createAlert(type, msg) {
     }
 }
 
-// $("#select-btn").click(() => {
-//     console.log("plink");
-//     createAlert("error", "Bad very bad bad");
-//     createAlert("warning", "Bad very bad bad");
-//     createAlert("success", "Bad very bad bad");
-// });
-
 $alertWrapper.on("click", ".alert", (event) => {
     let $target = $(event.currentTarget);
     let data = $target.data();
     let msg = $target.find("p").text();
-    console.log(msg);
     if (Object.keys(data).length) {
         switch (data.type.toLowerCase()) {
             case "warning":
@@ -119,5 +135,4 @@ $alertWrapper.on("click", ".alert", (event) => {
                 throw new TypeError("An invalid alert type was given");
         }
     }
-    console.log();
 });
