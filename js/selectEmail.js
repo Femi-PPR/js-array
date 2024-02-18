@@ -13,10 +13,10 @@ class Email {
         this.email = email;
         this.id = ++Email.count;
         this.$option = $(
-            `<option value="${this.id}" class="overflow-hidden text-ellipsis max-w-full">${this.email}</option>`
+            `<option value="${this.id}" class="overflow-hidden min-w-0 text-ellipsis max-w-full">${this.email}</option>`
         );
         this.$selected = $(
-            `<small class="flex gap-1 max-w-28 items-center"><span class="overflow-hidden text-ellipsis">${this.email}</span> <i data-id="${this.id}" class="remove-email cursor-pointer text-red-600 hover:text-red-700 min-w-3 icon-[mdi--remove-bold]"></i></small>`
+            `<small class="flex gap-1 max-w-72 items-center"><span class="overflow-hidden text-ellipsis">${this.email}</span> <i data-id="${this.id}" class="remove-email cursor-pointer text-red-600 hover:text-red-700 min-w-3 icon-[mdi--remove-bold]"></i></small>`
         );
         this.$item = $(`<div id="item-1" class="item bg-palette-2">
     <button class="header w-full bg-palette-8 p-5 text-xl flex gap-3 justify-between items-center">
