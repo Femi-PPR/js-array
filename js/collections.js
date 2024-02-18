@@ -2,11 +2,12 @@ let collections = new Map();
 const $assignBtn = $("#assign-btn");
 const $accordion = $("#accordion");
 
-function triggerDownload(image) {
-    fetch(image.downloadUrl);
+async function triggerDownload(image) {
+    let responce = await fetch(image.downloadUrl);
+    return responce.ok;
 }
 
-function appendImage(emailObj, image) {
+function appendImageToEmail(emailObj, image) {
     let imageStr = `<div class="h-48 relative">
     <img class="h-full w-full object-cover" src="${image.url}" alt="${image.description}">
     <div class="bg-black p-2 bg-opacity-75 absolute top-0 left-0 flex gap-3">
@@ -17,7 +18,7 @@ function appendImage(emailObj, image) {
     emailObj.appendToItem(imageStr);
 }
 
-$assignBtn.click(() => {
+$assignBtn.click(async () => {
     if (UnsplashImage.currImageObj === undefined) {
         createAlert(
             "error",
@@ -38,7 +39,7 @@ $assignBtn.click(() => {
     let alreadyInOneCollection = false;
     let alreadyInAllCollections = true;
 
-    selectedEmailIds.forEach((id) => {
+    selectedEmailIds.forEach(async (id) => {
         let image = UnsplashImage.currImageObj;
         let emailObj = Email.getEmailById(id);
         if (collections.has(id) && collections.get(id).has(image.url)) {
@@ -48,11 +49,11 @@ $assignBtn.click(() => {
                 $accordion.append(emailObj.$item);
                 collections.set(id, new Set());
             }
-            appendImage(emailObj, image);
+            appendImageToEmail(emailObj, image);
             collections.get(id).add(image.url);
 
             alreadyInAllCollections = false;
-            triggerDownload(image);
+            await triggerDownload(image);
         }
 
         removeEmailfromSelection(emailObj);
