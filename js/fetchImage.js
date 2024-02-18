@@ -105,7 +105,7 @@ async function fetchImage(query = "", username = "", contentFilter = "high") {
                     break;
                 case 404:
                     errMsg =
-                        "Found no images that match the given search query.";
+                        "No images matching the provided search query were found.";
                     break;
                 default:
                     errMsg = "Error. Something happened, idk.";
@@ -122,6 +122,10 @@ async function fetchImage(query = "", username = "", contentFilter = "high") {
 
 $previewImg.on("load", () => {
     $("#blur-img").remove();
+});
+
+$(document).ready(() => {
+    fetchImage();
 });
 
 $("#randomizer-btn").on("click", async () => {
