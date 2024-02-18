@@ -89,7 +89,7 @@ function createAlert(type, msg) {
     alert.$elem = $(`<div data-type="${type}" class="alert flex container p-3.5 rounded items-center gap-2 ${
         alertStyles.bg
     }">
-    <span class="${alertStyles.icon} ${alertStyles.iconColor}"></span>
+    <span class=" min-w-4 ${alertStyles.icon} ${alertStyles.iconColor}"></span>
     <div>
         <h2 class="inline ${alertStyles.head}">${capitalType}: </h2>
         <p class="inline ${alertStyles.body}">${escapeHtml(msg)}</p>
