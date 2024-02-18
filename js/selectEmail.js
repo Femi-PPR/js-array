@@ -132,7 +132,7 @@ $selectBtn.click(() => {
         }
     }
 });
-// QuiexercitationculpasuntcillumdolorLoremdoloreconsecteturmagnaconsequatmagnaveniamnonadipisicingmagnamagnaenimnullaMollitdolaborumconsequatidsuntexercitationmagnacommododolornisiadnonIddolorlaboreoccaecatsuntconsequatadipisicingadsuntreprehenderitaliquipOccaecatetidcommodoadidexcepteurnonvoluptateNonveniamdolorduisconsequatestenimipsumoccaecatad@g
+
 $selectedDiv.on("click", ".remove-email", (event) => {
     const $target = $(event.target);
     removeEmailfromSelection(Email.getEmailById($target.data("id")));
