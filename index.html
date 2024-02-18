@@ -35,7 +35,7 @@
             <div class="grow bg-palette-3 rounded-lg divide-y-2 divide-palette-1 flex flex-col">
                 <!-- RANDOMISER IMG -->
                 <div class="p-5">
-                    <form id="randomizer-form" action="">
+                    <form id="randomizer-form">
                         <button type="button" id="randomizer-btn" class="p-2 bg-palette-1 rounded-sm w-full mb-2">Randomize Image</button>
                         <button type="button" id="adv-toggle-btn" class="text-[0.8rem] flex items-center" onclick="toggleDropdown()">advanced options <span class="icon-[mdi--chevron-down]"></span></button>
                         <div id="adv-options" class="grid grid-cols-1 gap-x-4 gap-y-1 bg-palette-9 mx-[-1.25rem] transition-all opt-collapse">
@@ -49,7 +49,7 @@
                             </label>
                             <label for="content-filter" class="text-[0.8rem] font-light">
                                 Content Filter <br>
-                                <select name="" id="content-filter" class="w-full p-1.5 text-[0.8rem] font-light">
+                                <select id="content-filter" class="w-full p-1.5 text-[0.8rem] font-light">
                                     <option value="high">High</option>
                                     <option value="low">Low</option>
                                 </select>
@@ -59,7 +59,7 @@
                 </div>
                 <!-- CHOOSE EMAIL -->
                 <div class="p-5 grow">
-                    <form action="" class="flex flex-col gap-1">
+                    <form class="flex flex-col gap-1">
                         <div class="flex flex-col">
                             <label for="existing-emails" class="flex min-w-0 flex-col">
                                 Choose From Existing Email
