@@ -22,7 +22,7 @@
             <!-- IMG PREVIEW -->
             <div class="flex flex-col gap-7 items-center">
                 <h2 class="text-xl font-semibold">Image Preview</h2>
-                <div class="w-72 h-96 relative bg-palette-6 overflow-hidden ring-4 ring-offset-[10px] ring-offset-palette-1 ring-palette-6 rounded-lg">
+                <div class="max-w-72 md:w-72 h-96 relative bg-palette-6 overflow-hidden ring-4 ring-offset-[10px] m-3.5 ring-offset-palette-1 ring-palette-6 rounded-lg">
                     <img id="preview-img" class="object-cover w-full h-full rounded-lg" src="http://placekitten.com/400/500" alt="">
                     <div id="loading-div" class="absolute inset-0"></div>
                 </div>
@@ -60,9 +60,9 @@
                 <div class="p-5 grow">
                     <form action="" class="flex flex-col gap-1">
                         <div class="flex flex-col">
-                            <label for="existing-emails" class="flex flex-col">
+                            <label for="existing-emails" class="flex min-w-0 flex-col">
                                 Choose From Existing Email
-                                <select id="existing-emails" class="p-2 disabled:bg-gray-100 overflow-hidden max-w-full" required>
+                                <select id="existing-emails" class="p-2 disabled:bg-gray-100 overflow-hidden text-ellipsis min-w-0 w-full" required>
                                     <option value="" id="default-selection" class="p-2" disabled hidden selected>Select an email address</option>
                                 </select>
                             </label>
