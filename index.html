@@ -18,7 +18,7 @@
 <main class="flex flex-col justify-around 2xl:justify-start min-h-dvh py-16 gap-8">
     <!-- IMAGES GENERATOR & ASSIGNER -->
     <section class="flex items-center">
-        <div class="container mx-auto flex flex-col md:flex-row gap-8">
+        <div class="container mx-auto flex flex-col md:flex-row gap-8 px-3.5 md:px-2">
             <!-- IMG PREVIEW -->
             <div class="flex flex-col gap-7 items-center">
                 <h2 class="text-xl font-semibold">Image Preview</h2>
@@ -26,7 +26,7 @@
                     <img id="preview-img" class="object-cover w-full h-full rounded-lg" src="http://placekitten.com/400/500" alt="">
                     <div id="loading-div" class="absolute inset-0"></div>
                 </div>
-                <p class="w-80 bg-palette-3 px-3 py-2 rounded-md text-center leading-relaxed">
+                <p class="max-w-80 bg-palette-3 px-3 py-2 rounded-md text-center leading-relaxed">
                     Image taken by <a href="" class="unsplash-profile-link text-palette-6 hover:text-palette-7" target="_blank"></a>. <br> You can also see this image on <a href="" class="unsplash-img-link text-palette-6 hover:text-palette-7" target="_blank">Unsplash</a>.
                 </p>
             </div>
@@ -89,12 +89,12 @@
     </section>
     <!-- COLLECTION OF ASSIGNED IMAGES -->
     <section class="">
-        <div class="container mx-auto">
+        <div class="container mx-auto px-3.5 md:px-2">
             <div class="main-collections">
                 <h2 class="text-2xl font-semibold pb-2">Collections</h2>
                 <div id="accordion" class="accordion rounded-xl overflow-hidden">
                 </div>
-                <p id="no-collections">This is empty right now. Why don't you try attaching an image to an email address above.</p>
+                <p id="no-collections" class="py-3">This is empty right now. Why don't you try attaching an image to an email address above.</p>
             </div>
         </div>    
     </section>
