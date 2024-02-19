@@ -55,8 +55,6 @@ $assignBtn.click(async () => {
             alreadyInAllCollections = false;
             await triggerDownload(image);
         }
-
-        removeEmailfromSelection(emailObj);
     });
     if (!alreadyInOneCollection)
         createAlert(
