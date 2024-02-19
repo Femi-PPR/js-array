@@ -3,6 +3,7 @@ const $emailSelectElem = $("#existing-emails");
 const $emailInputElem = $("#new-email");
 const $selectBtn = $("#select-btn");
 const $selectedDiv = $("#selected-div");
+const emailRegex = /^(([^<>()\[\]\.,;:\s@"]+(.[^<>()[\]\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 class Email {
     static count = 0;
@@ -77,9 +78,6 @@ $emailInputElem.on("input", () => {
 });
 
 function emailValid(email) {
-    let input = document.getElementById("new-email");
-    let validity = input.validity;
-
     if (Email.exists(email)) {
         createAlert(
             "error",
@@ -95,7 +93,7 @@ function emailValid(email) {
         );
         return false;
     }
-    if (validity.typeMismatch) {
+    if (!emailRegex.test(email)) {
         createAlert(
             "error",
             "The email you provided is not valid. Please enter a valid email address."
