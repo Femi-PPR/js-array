@@ -16,7 +16,27 @@
 <header class="p-4 border-b-2 border-black bg-palette-2">
     <h1 class="container mx-auto text-4xl">Random Image Generator</h1>
 </header>
-<main class="flex flex-col justify-around 2xl:justify-start min-h-dvh py-16 gap-8">
+<section class="mx-auto container px-3.5 md:px-2 py-8">
+    <div class="rounded-xl bg-palette-3 p-5">
+        <h2 class="text-xl font-semibold pb-2">How to use:</h2>
+        <ol class="marker:rounded-full marker:bg-slate-400 marker:size-2 flex flex-col gap-1.5">
+            <li class="flex gap-2 items-start"><span class="rounded-full mt-0.5 size-5 min-w-5 grid place-content-center text-xs bg-palette-6 text-white">1</span> 
+                <div>
+                    A random image has been generated for you. If you don't like it, click 'Randomize Image' for another option. <br>
+                    <small>For more control over the image selection, click on 'advanced options'.</small>
+                </div>
+            </li>
+            <li class="flex gap-2 items-start"><span class="rounded-full mt-0.5 size-5 min-w-5 grid place-content-center text-xs bg-palette-6 text-white">2</span> 
+                <div>
+                    Choose from existing email addresses or add a new one. You can select multiple email addresses simultaneously.<br>
+                    <small class="">To remove a selected email, click the <i class="text-red-600 min-w-3 inline-flex align-text-bottom mb-0.5 icon-[mdi--remove-bold]"></i>, and it will appear in the existing emails option list.</small>
+                </div> 
+            </li>
+            <li class="flex gap-2 items-start"><span class="rounded-full mt-0.5 size-5 min-w-5 grid place-content-center text-xs bg-palette-6 text-white">3</span> Assign the image to the select email addresses. The assigned image will be displayed under each email address in the collections section.</li>
+        </ol>
+    </div>
+</section>
+<main class="flex flex-col justify-around 2xl:justify-start min-h-dvh pb-16 gap-8">
     <!-- IMAGES GENERATOR & ASSIGNER -->
     <section class="flex items-center">
         <div class="container mx-auto flex flex-col md:flex-row gap-8 px-3.5 md:px-2">
@@ -70,7 +90,7 @@
                             <p class="font-black text-2xl flex-none mx-auto mt-3">OR</p>
                             <label for="new-email" class="flex flex-col gap-0.5">
                                 Add New Email Address
-                                <input type="email" id="new-email" class="p-2 overflow-scroll" placeholder="Email">
+                                <input type="text" id="new-email" class="p-2 overflow-scroll" placeholder="Email">
                             </label>
                         </div>
                         <button type="button" id="select-btn" class="p-2 mt-4 bg-palette-1 rounded-sm hover:bg-palette-10">Select Email</button>
