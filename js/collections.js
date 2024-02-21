@@ -64,16 +64,11 @@ $assignBtn.click(async () => {
     else if (!alreadyInAllCollections)
         createAlert(
             "warning",
-            "Added image to some selected emails collections as it already exists in the others"
+            "Image was not added to all selected emails collections as it already exists some of them"
         );
     else
         createAlert(
             "error",
             "Image was not added to any selected emails collections as it already exists in all of them"
         );
-    fetchImage(
-        $("#query").val(),
-        $("#username").val(),
-        $("#content-filter").val()
-    );
 });
