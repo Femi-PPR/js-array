@@ -1,4 +1,5 @@
 const $previewImg = $("#preview-img");
+const ERR_STYLES = "outline outline-red-400 outline-2";
 const $profileLink = $(".unsplash-profile-link");
 const $imgLink = $(".unsplash-img-link");
 const USERNAME_REGEX = /^[\da-zA-Z_]*$/;
@@ -29,30 +30,17 @@ class Request {
 class UnsplashImage {
     static currImageObj;
 
-    constructor(data, test = false) {
-        if (test) {
-            this.description = data.description;
-            this.url = "http://placekitten.com/300/450";
-            this.link = "http://placekitten.com";
-            this.downloadUrl = "http://placekitten.com";
-            this.author = `Kay (@kay)`;
-            this.profileLink = "http://placekitten.com";
-            this.profileImg = "http://placekitten.com/30/30";
-            // this.hash = data.blur_hash;
-            // this.blurWidth = 20;
-            // this.blurHeight = this.#calcHeight(data.height / data.width);
-        } else {
-            this.description = data.description;
-            this.url = `${data.urls.raw}?q=75&fm=jpg&w=300&fit=max`;
-            this.link = data.links.html;
-            this.downloadUrl = `${data.links.download_location}&client_id=XYRQifXX_-x6Nroy6uWI4RcI-L1ufecX4TPi_iIFN4k`;
-            this.author = `${data.user.name} (@${data.user.username})`;
-            this.profileLink = data.user.links.html;
-            this.profileImg = data.user.profile_image.small;
-            this.hash = data.blur_hash;
-            this.blurWidth = 20;
-            this.blurHeight = this.#calcHeight(data.height / data.width);
-        }
+    constructor(data) {
+        this.description = data.description;
+        this.url = `${data.urls.raw}?q=75&fm=jpg&w=300&fit=max`;
+        this.link = data.links.html;
+        this.downloadUrl = `${data.links.download_location}&client_id=XYRQifXX_-x6Nroy6uWI4RcI-L1ufecX4TPi_iIFN4k`;
+        this.author = `${data.user.name} (@${data.user.username})`;
+        this.profileLink = data.user.links.html;
+        this.profileImg = data.user.profile_image.small;
+        this.hash = data.blur_hash;
+        this.blurWidth = 20;
+        this.blurHeight = this.#calcHeight(data.height / data.width);
 
         UnsplashImage.currImageObj = this;
     }
@@ -135,8 +123,10 @@ $("#randomizer-btn").on("click", async () => {
             "error",
             "Username can only contain letters, numbers, and underscores"
         );
+        $("#username").addClass(ERR_STYLES);
         return;
     }
+    $("#username").removeClass(ERR_STYLES);
     fetchImage(
         $("#query").val(),
         $("#username").val(),
