@@ -17,11 +17,11 @@ class Email {
             `<option value="${this.id}" class="overflow-hidden min-w-0 text-ellipsis max-w-full">${this.email}</option>`
         );
         this.$selected = $(
-            `<small class="flex gap-1 max-w-72 items-center"><span class="overflow-hidden text-ellipsis">${this.email}</span> <i data-id="${this.id}" class="remove-email cursor-pointer text-red-600 hover:text-red-700 min-w-3 icon-[mdi--remove-bold]"></i></small>`
+            `<small class="flex gap-1 max-w-72 min-w-0 text-nowrap items-center"><span class="overflow-hidden min-w-0 text-ellipsis">${this.email}</span> <i data-id="${this.id}" class="remove-email cursor-pointer text-red-600 hover:text-red-700 min-w-3 icon-[mdi--remove-bold]"></i></small>`
         );
         this.$item = $(`<div id="item-1" class="item bg-palette-2">
     <button class="header w-full bg-palette-8 p-5 text-xl flex gap-3 justify-between items-center">
-        <h2 class="overflow-hidden text-ellipsis">${this.email}</h2>
+        <h2 class="overflow-hidden text-nowrap text-ellipsis">${this.email}</h2>
         <span class="icon-[ion--chevron-down] min-w-7 size-7"></span>
     </button>
     <div class="content transition-all flex gap-5 flex-wrap">
@@ -86,13 +86,6 @@ function emailValid(email) {
         return false;
     }
 
-    if (Email.count >= 30) {
-        createAlert(
-            "error",
-            "You have reached the maximum limit for email additions. No further emails can be added at this time."
-        );
-        return false;
-    }
     if (!emailRegex.test(email)) {
         createAlert(
             "error",
@@ -112,11 +105,13 @@ $selectBtn.click(() => {
         );
         return;
     }
-
     if ($emailInputElem.val() !== "") {
         let email = escapeHtml($emailInputElem.val());
-        if (!emailValid(email)) return;
-
+        if (!emailValid(email)) {
+            $emailInputElem.addClass(ERR_STYLES);
+            return;
+        }
+        $emailInputElem.removeClass(ERR_STYLES);
         addEmailtoSelection(new Email(email));
         $emailInputElem.val("");
         $emailSelectElem.prop("disabled", false);
